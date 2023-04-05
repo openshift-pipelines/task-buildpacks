@@ -1,0 +1,30 @@
+---
+images:
+  bash: docker.io/library/bash:latest
+  builder: docker.io/paketobuildpacks/builder:base
+
+annotations:
+  tekton.dev/categories: Image Build
+  tekton.dev/displayName: Buildpacks
+  tekton.dev/pipelines.minVersion: "0.17.0"
+  tekton.dev/platforms: linux/amd64
+  tekton.dev/tags: image-build
+
+# cloud native builder base configuration
+cnb:
+  # CNB builder API support version
+  platformAPI: "0.11"
+  # the CNB builder security context, by default it uses UID and GID 1000
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+
+# sets attributes to all steps
+stepTemplate:
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
