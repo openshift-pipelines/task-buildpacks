@@ -1,0 +1,59 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  labels:
+    name: task-buildpacks
+  name: task-buildpacks
+spec:
+  params:
+    - name: URL
+      type: string
+      description: Git repository URL
+    - name: APP_IMAGE
+      type: string
+      description: Fully qualified image name, including tag
+    - name: SUBDIRECTORY
+      type: string
+      description: Relative path with the application source code
+    - name: VERBOSE
+      type: string
+      description: Verbose logging
+
+  workspaces:
+    - name: source
+    - name: cache
+    - name: bindings
+
+  tasks:
+    - name: git
+      taskRef:
+        name: git
+      workspaces:
+        - name: output
+          workspace: source
+      params:
+        - name: URL
+          value: $(params.URL)
+        - name: VERBOSE
+          value: $(params.VERBOSE)
+
+    - name: buildpacks
+      taskRef:
+        name: buildpacks
+      runAfter:
+        - git
+      workspaces:
+        - name: source
+          workspace: source
+        - name: cache
+          workspace: cache
+        - name: bindings
+          workspace: bindings
+      params:
+        - name: APP_IMAGE
+          value: $(params.APP_IMAGE)
+        - name: SUBDIRECTORY
+          value: $(params.SUBDIRECTORY)
+        - name: VERBOSE
+          value: $(params.VERBOSE)

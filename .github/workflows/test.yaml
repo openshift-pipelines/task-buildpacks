@@ -1,0 +1,53 @@
+---
+name: test
+
+on:
+  push:
+    tags-ignore:
+      - "*"
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      # running integration test target
+      - name: test-integration
+        run: make test-integration
+
+  test-e2e:
+    runs-on: ubuntu-latest
+    needs:
+      - test-integration
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - uses: azure/setup-helm@v3
+
+      # instantiate a KinD (Kubernetes in Docker) cluster, installs `kubectl` and configures the
+      # `kubeconfig` to reach the local cluster
+      - uses: helm/kind-action@v1.5.0
+        with:
+          cluster_name: kind
+          wait: 120s
+
+      # installs Tekton Pipelines and `tkn` command line, including a local Container-Registry with
+      # settings to reach it during testing
+      - uses: openshift-pipelines/setup-tektoncd@v1
+        with:
+          pipeline_version: v0.41.0
+          cli_version: v0.29.1
+
+      # running end-to-end test target
+      - name: test-e2e
+        run: make test-e2e
