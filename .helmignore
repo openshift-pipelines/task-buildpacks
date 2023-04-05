@@ -1,0 +1,12 @@
+/.DS_Store
+/.git/
+/.github/
+/.gitignore
+/.gitmodules
+/.helmignore
+/.vscode/
+/*.md
+/LICENSE
+/Makefile
+/OWNERS
+/test/
