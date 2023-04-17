@@ -19,7 +19,7 @@ spec:
     - name: cache
       optional: true
       description: |
-        Cache directory, alternative to the "CACHE_IMAGE" paramter.
+        Cache directory, alternative to the `CACHE_IMAGE` param.
     - name: bindings
       optional: true
       description: |
@@ -44,7 +44,7 @@ spec:
       type: string
       default: ""
       description: |
-        Alternative "CNB_APP_DIR" directory, relative to the "source"
+        Alternative `CNB_APP_DIR` directory, relative to the "source"
         Workspace.
     - name: ENV_VARS
       type: array
@@ -61,7 +61,7 @@ spec:
       default: "*.pem"
       description: |
         Extra binding file name(s) (glob expression) present on the `bindings`
-        Workspace to be copied into SERVICE_BINDING_ROOT directory.
+        Workspace to be copied into `SERVICE_BINDING_ROOT` directory.
     - name: RUN_IMAGE
       type: string
       default: ""
@@ -97,10 +97,10 @@ spec:
   results:
     - name: APP_IMAGE_DIGEST
       description: |
-        Reported "APP_IMAGE" digest.
+        Reported `APP_IMAGE` digest.
     - name: APP_IMAGE_URL
       description: |
-        Reported fully qualifed container image name.
+        Reported fully qualified container image name.
 
   volumes:
     - name: scripts-dir
