@@ -39,6 +39,8 @@ endef
 helm-template:
 	$(call render-template)
 
+default: helm-template
+
 # renders and installs the resources (task)
 install:
 	$(call render-template) |kubectl $(ARGS) apply -f -
