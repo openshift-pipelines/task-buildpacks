@@ -26,7 +26,7 @@ spec:
     - name: source
 
   params:
-    - name: APP_IMAGE
+    - name: IMAGE
       type: string
       description: Fully qualified image name, including tag
 
@@ -43,7 +43,7 @@ spec:
           value: https://github.com/paketo-buildpacks/samples.git
 
     # Running the buildpacks' CNB on the source code to build the container
-    # image (APP_IMAGE).
+    # image (IMAGE param).
     - name: buildpacks
       taskRef:
         name: buildpacks
@@ -55,16 +55,15 @@ spec:
       params:
         - name: SUBDIRECTORY
           value: nodejs/npm
-        - name: APP_IMAGE
-          value: $(params.APP_IMAGE)
-
+        - name: IMAGE
+          value: $(params.IMAGE)
 ```
 
 Please consider the [Workspaces](#workspaces), [Parameters](#parameters) and [Results](#results) described below.
 
 ## Container Registry Authentication
 
-The `buildpacks` Task needs credentials to communicate with the Container Registries to publish the images created by the CNB (`APP_IMAGE` param), and also, to optionally store cached data (`CACHE_IMAGE` param).
+The `buildpacks` Task needs credentials to communicate with the Container Registries to publish the images created by the CNB (`IMAGE` param), and also, to optionally store cached data (`CACHE_IMAGE` param).
 
 Please consider Tekton Pipeline documentation to setup the [Container Registry authentication][tektonContainerRegistryAuth].
 
@@ -102,7 +101,7 @@ Given the param `BINDINGS_GLOB` is set to pick up `*.pem` files, then you can [m
 
 | Param         | Type                       | Default                      | Description                |
 | :------------ | :------------------------: | :--------------------------- | :------------------------- |
-| `APP_IMAGE` | `string` | (required) | Application's container image name, and tag. |
+| `IMAGE` | `string` | (required) | Application's container image name, and tag. |
 | `BUILDER_IMAGE` | `string` | `docker.io/paketobuildpacks/builder:base` | Cloud Native Builder (CNB) container image name (and tag). |
 | `CNB_PLATFORM_API` | `string` | `0.11` | Lifecycle platform API compatibility version. |
 | `SUBDIRECTORY` | `string` | "" (empty) | Alternative `CNB_APP_DIR` directory, relative to the "source" Workspace. |
@@ -120,8 +119,8 @@ Given the param `BINDINGS_GLOB` is set to pick up `*.pem` files, then you can [m
 
 | Result        | Description                |
 | :------------ | :------------------------- |
-| `APP_IMAGE_DIGEST` | Reported `APP_IMAGE` digest. |
-| `APP_IMAGE_URL` | Reported fully qualified container image name. |
+| `IMAGE_DIGEST` | Reported `IMAGE` digest. |
+| `IMAGE_URL` | Reported fully qualified container image name. |
 
 [buildpacksIO]: https://buildpacks.io/
 [paketoNodejsSample]: https://github.com/paketo-buildpacks/samples/tree/main/nodejs/npm

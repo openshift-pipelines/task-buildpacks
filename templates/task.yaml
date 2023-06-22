@@ -26,7 +26,7 @@ spec:
         Extra bindings, CA certificate bundle files.
 
   params:
-    - name: APP_IMAGE
+    - name: IMAGE
       type: string
       description: |
         Application's container image name, and tag.
@@ -95,10 +95,10 @@ spec:
         Turns on verbose logging, all commands executed will be printed out.
 
   results:
-    - name: APP_IMAGE_DIGEST
+    - name: IMAGE_DIGEST
       description: |
-        Reported `APP_IMAGE` digest.
-    - name: APP_IMAGE_URL
+        Reported `IMAGE` digest.
+    - name: IMAGE_URL
       description: |
         Reported fully qualified container image name.
 

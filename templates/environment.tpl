@@ -9,7 +9,7 @@
 */ -}}
 {{- define "environment" -}}
     {{- range list
-          "params.APP_IMAGE"
+          "params.IMAGE"
           "params.BUILDER_IMAGE"
           "params.CNB_PLATFORM_API"
           "params.SUBDIRECTORY"
@@ -26,8 +26,8 @@
           "workspaces.cache.path"
           "workspaces.bindings.bound"
           "workspaces.bindings.path"
-          "results.APP_IMAGE_DIGEST.path"
-          "results.APP_IMAGE_URL.path"
+          "results.IMAGE_DIGEST.path"
+          "results.IMAGE_URL.path"
     }}
 - name: {{ . | upper | replace "." "_" | replace "-" "_" }}
   value: "$({{ . }})"

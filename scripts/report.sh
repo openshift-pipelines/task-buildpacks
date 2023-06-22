@@ -22,8 +22,8 @@ phase "Extracting result image digest and URL"
 readonly digest="$(awk -F '"' '/digest/ { print $2 }' ${REPORT_TOML_PATH})"
 readonly image_tag="$(awk -F '"' '/tags/ { print $2 }' ${REPORT_TOML_PATH})"
 
-phase "Writing image digest '${digest}' to '${RESULTS_APP_IMAGE_DIGEST_PATH}'"
-printf "%s" "${digest}" >${RESULTS_APP_IMAGE_DIGEST_PATH}
+phase "Writing image digest '${digest}' to '${RESULTS_IMAGE_DIGEST_PATH}'"
+printf "%s" "${digest}" >${RESULTS_IMAGE_DIGEST_PATH}
 
-phase "Writing image URL '${image_tag}' to '${RESULTS_APP_IMAGE_URL_PATH}'"
-printf "%s" "${image_tag}" >${RESULTS_APP_IMAGE_URL_PATH}
+phase "Writing image URL '${image_tag}' to '${RESULTS_IMAGE_URL_PATH}'"
+printf "%s" "${image_tag}" >${RESULTS_IMAGE_URL_PATH}
