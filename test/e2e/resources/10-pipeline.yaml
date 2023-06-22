@@ -10,7 +10,7 @@ spec:
     - name: URL
       type: string
       description: Git repository URL
-    - name: APP_IMAGE
+    - name: IMAGE
       type: string
       description: Fully qualified image name, including tag
     - name: SUBDIRECTORY
@@ -51,8 +51,8 @@ spec:
         - name: bindings
           workspace: bindings
       params:
-        - name: APP_IMAGE
-          value: $(params.APP_IMAGE)
+        - name: IMAGE
+          value: $(params.IMAGE)
         - name: SUBDIRECTORY
           value: $(params.SUBDIRECTORY)
         - name: VERBOSE

@@ -2,7 +2,7 @@
 
 source ./test/helper/helper.sh
 
-export PARAMS_APP_IMAGE="registry.local/namespace/project:latest"
+export PARAMS_IMAGE="registry.local/namespace/project:latest"
 
 export PARAMS_BINDINGS_GLOB="*.pem"
 export PARAMS_GROUP_ID="$(id -g)"
@@ -35,8 +35,8 @@ prepare_sh="./scripts/prepare.sh"
 	export WORKSPACES_CACHE_BOUND="false"
 	export WORKSPACES_CACHE_PATH="${BASE_DIR}/workspace/cache"
 
-	export RESULTS_APP_IMAGE_DIGEST_PATH="${BASE_DIR}/results/image-digest.txt"
-	export RESULTS_APP_IMAGE_URL_PATH="${BASE_DIR}/results/image-digest.txt"
+	export RESULTS_IMAGE_DIGEST_PATH="${BASE_DIR}/results/image-digest.txt"
+	export RESULTS_IMAGE_URL_PATH="${BASE_DIR}/results/image-digest.txt"
 
 	run mkdir -p -v ${TEKTON_HOME} ${LAYERS_DIR} ${WORKSPACES_SOURCE_PATH}
 	assert_success
@@ -64,8 +64,8 @@ prepare_sh="./scripts/prepare.sh"
 	export WORKSPACES_BINDINGS_BOUND="true"
 	export WORKSPACES_BINDINGS_PATH="${BASE_DIR}/workspace/bindings"
 
-	export RESULTS_APP_IMAGE_DIGEST_PATH="${BASE_DIR}/results/image-digest.txt"
-	export RESULTS_APP_IMAGE_URL_PATH="${BASE_DIR}/results/image-digest.txt"
+	export RESULTS_IMAGE_DIGEST_PATH="${BASE_DIR}/results/image-digest.txt"
+	export RESULTS_IMAGE_URL_PATH="${BASE_DIR}/results/image-digest.txt"
 
 	run mkdir -p -v ${TEKTON_HOME} \
 		${LAYERS_DIR} \

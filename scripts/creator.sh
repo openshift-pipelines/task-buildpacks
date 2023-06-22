@@ -14,7 +14,7 @@ phase "Inspecting source directory '${SOURCE_DIR}' (subdirectory '${PARAMS_SUBDI
 
 declare -rx CNB_PLATFORM_API="${PARAMS_CNB_PLATFORM_API}"
 
-phase "Creating the image '${PARAMS_APP_IMAGE}' from '${SOURCE_DIR}' (API=${CNB_PLATFORM_API})"
+phase "Creating the image '${PARAMS_IMAGE}' from '${SOURCE_DIR}' (API=${CNB_PLATFORM_API})"
 set -x
 exec creator \
 	-app="${SOURCE_DIR}" \
@@ -26,9 +26,9 @@ exec creator \
 	-skip-restore="${PARAMS_SKIP_RESTORE}" \
 	-cache-dir="${WORKSPACES_CACHE_PATH}" \
 	-cache-image="${PARAMS_CACHE_IMAGE}" \
-	-previous-image="${PARAMS_APP_IMAGE}" \
+	-previous-image="${PARAMS_IMAGE}" \
 	-run-image="${PARAMS_RUN_IMAGE}" \
 	-report="${REPORT_TOML_PATH}" \
 	-log-level="${CNB_LOG_LEVEL}" \
 	-no-color \
-	${PARAMS_APP_IMAGE}
+	${PARAMS_IMAGE}

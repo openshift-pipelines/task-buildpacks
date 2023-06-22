@@ -17,7 +17,18 @@ TASK_GIT ?= https://github.com/openshift-pipelines/task-git/releases/download/0.
 # picked up by the "test-e2e" target
 E2E_PARAM_URL ?= https://github.com/paketo-buildpacks/samples.git
 E2E_PARAM_SUBDIRECTORY ?= nodejs/npm
-E2E_PARAM_APP_IMAGE ?= registry.registry.svc.cluster.local:32222/task-buildpacks/samples-nodejs:latest
+
+# container registry URL, usually hostname and port
+REGISTRY_URL ?= registry.registry.svc.cluster.local:32222
+# containre registry namespace, as in the section of the registry allowed to push images
+REGISTRY_NAMESPACE ?= task-buildpacks
+# base part of a fully qualified container image name
+IMAGE_BASE ?= $(REGISTRY_URL)/$(REGISTRY_NAMESPACE)
+
+# simple image name, followed by tag
+E2E_IMAGE_TAG ?= samples-nodejs:latest
+# task parameter with the fully qualified image name, to be built with buildpacks
+E2E_PARAM_IMAGE ?= $(IMAGE_BASE)/${E2E_IMAGE_TAG}
 
 # workspace "source" pvc resource and name
 E2E_PVC ?= test/e2e/resources/01-pvc.yaml
