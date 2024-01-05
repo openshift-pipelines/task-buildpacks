@@ -1,5 +1,5 @@
 ---
-apiVersion: tekton.dev/v1beta1
+apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: buildpacks
@@ -115,9 +115,9 @@ spec:
   stepTemplate:
     env:
 {{- include "environment" . | nindent 6 }}
-{{- if .Values.stepTemplate.resources }}
+{{- if .Values.stepTemplate.computeResources }}
     resources:
-  {{- .Values.stepTemplate.resources | toYaml | nindent 6 }}
+  {{- .Values.stepTemplate.computeResources | toYaml | nindent 6 }}
 {{- end }}
 
   steps:
