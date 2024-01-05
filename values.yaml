@@ -21,7 +21,7 @@ cnb:
 
 # sets attributes to all steps
 stepTemplate:
-  resources: {}
+  computeResources: {}
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
