@@ -45,4 +45,9 @@ declare E2E_PVC_NAME="${E2E_PVC_NAME:-}"
 	assert_tekton_resource "pipelinerun" --partial '(Failed: 0, Cancelled 0), Skipped: 0'
 	# asserting the task results using a regexp to match the expected key-value entries
 	assert_tekton_resource "taskrun" --regexp $'IMAGE_DIGEST=\S+.\nIMAGE_URL=\S+*'
+
+	tkn pipelinerun list
+	tkn taskrun list
+	kubectl get taskruns -o yaml
+	kubectl get pods -o yaml
 }
