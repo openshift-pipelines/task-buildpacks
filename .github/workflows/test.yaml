@@ -60,9 +60,14 @@ jobs:
       # installs Tekton Pipelines and `tkn` command line, including a local Container-Registry with
       # settings to reach it during testing
       - uses: openshift-pipelines/setup-tektoncd@v1
+        if: ${{ matrix.pipeline-version != "v0.47.6" && matrix.pipeline-version != "v0.50.5" }}
         with:
           pipeline_version: ${{ matrix.pipeline-version }}
-          feature_flags: '{ "coschedule": "pipelinerun" }'
+          feature_flags: '{ "coschedule": "pipelineruns" }'
+      - uses: openshift-pipelines/setup-tektoncd@v1
+        if: ${{ matrix.pipeline-version == "v0.47.6" || matrix.pipeline-version == "v0.50.5" }}
+        with:
+          pipeline_version: ${{ matrix.pipeline-version }}
 
       # running end-to-end test target
       - name: test-e2e
