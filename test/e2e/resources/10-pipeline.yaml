@@ -28,7 +28,14 @@ spec:
   tasks:
     - name: git
       taskRef:
-        name: git
+        resolver: git
+        params:
+          - name: url
+            value: https://github.com/openshift-pipelines/tektoncd-catalog
+          - name: revision
+            value: p
+          - name: pathInRepo
+            value: tasks/task-git/0.2.0/task-git.yaml
       workspaces:
         - name: output
           workspace: source

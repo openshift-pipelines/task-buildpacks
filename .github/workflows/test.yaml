@@ -62,6 +62,7 @@ jobs:
       - uses: openshift-pipelines/setup-tektoncd@v1
         with:
           pipeline_version: ${{ matrix.pipeline-version }}
+          feature_flags: '{ "coschedule": "pipelinerun" }'
 
       # running end-to-end test target
       - name: test-e2e
