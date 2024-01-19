@@ -63,11 +63,12 @@ jobs:
         if: ${{ matrix.pipeline-version != 'v0.47.6' && matrix.pipeline-version != 'v0.50.5' }}
         with:
           pipeline_version: ${{ matrix.pipeline-version }}
-          feature_flags: '{ "coschedule": "pipelineruns" }'
+          feature_flags: '{ "coschedule": "pipelineruns", "disable-affinity-assistant": "true" }'
       - uses: openshift-pipelines/setup-tektoncd@v1
         if: ${{ matrix.pipeline-version == 'v0.47.6' || matrix.pipeline-version == 'v0.50.5' }}
         with:
           pipeline_version: ${{ matrix.pipeline-version }}
+          feature_flags: '{ "enable-api-fields": "beta", "disable-affinity-assistant": "true"}'
 
       # running end-to-end test target
       - name: test-e2e
