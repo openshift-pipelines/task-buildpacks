@@ -1,3 +1,8 @@
+SHELL := /usr/bin/env bash
+BIN = $(CURDIR)/.bin
+
+OSP_VERSION ?= latest
+
 # using the chart name and version from chart's metadata
 CHART_NAME ?= $(shell awk '/^name:/ { print $$2 }' Chart.yaml)
 CHART_VESION ?= $(shell awk '/^version:/ { print $$2 }' Chart.yaml)
@@ -45,6 +50,44 @@ ARGS ?=
 define render-template
 	@helm template $(ARGS) $(CHART_NAME) .
 endef
+
+$(BIN):
+	@mkdir -p $@
+
+CATALOGCD = $(or ${CATALOGCD_BIN},${CATALOGCD_BIN},$(BIN)/catalog-cd)
+$(BIN)/catalog-cd: $(BIN)
+	curl -fsL https://github.com/openshift-pipelines/catalog-cd/releases/download/v0.1.0/catalog-cd_0.1.0_linux_x86_64.tar.gz | tar xzf - -C $(BIN) catalog-cd
+
+# pepare a release
+.PHONY: prepare-release
+prepare-release:
+	mkdir -p $(RELEASE_DIR) || true
+	hack/release.sh $(RELEASE_DIR)
+
+.PHONY: release
+release: prepare-release
+	pushd ${RELEASE_DIR} && \
+		$(CATALOGCD) release \
+			--output release \
+			--version $(CHART_VERSION) \
+			tasks/* \
+		; \
+	popd
+
+# tags the repository with the RELEASE_VERSION and pushes to "origin"
+git-tag-release-version:
+	if ! git rev-list "${RELEASE_VERSION}".. >/dev/null; then \
+		git tag "$(RELEASE_VERSION)" && \
+			git push origin --tags; \
+	fi
+
+# github-release
+.PHONY: github-release
+github-release: git-tag-release-version release
+	gh release create $(RELEASE_VERSION) --generate-notes && \
+	gh release upload $(RELEASE_VERSION) $(RELEASE_DIR)/release/catalog.yaml && \
+	gh release upload $(RELEASE_VERSION) $(RELEASE_DIR)/release/resources.tar.gz
+
 
 # renders the task resource file printing it out on the standard output
 helm-template:
