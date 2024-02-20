@@ -94,6 +94,10 @@ default: helm-template
 install:
 	$(call render-template) |kubectl $(ARGS) apply -f -
 
+# renders and remove the resources (task)
+remove:
+	$(call render-template) |kubectl $(ARGS) delete -f -
+
 # packages the helm-chart as a single tarball, using it's name and version to compose the file
 helm-package: clean
 	helm package $(ARGS) .
