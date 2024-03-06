@@ -1,5 +1,5 @@
 # This Docerfile is the environment where the test will be run in.
-FROM registry.ci.openshift.org/openshift/release:golang-1.20
+FROM registry.ci.openshift.org/openshift/release:golang-1.21
 
 # Add kubernetes repository
 ADD ci/kubernetes.repo /etc/yum.repos.d/
