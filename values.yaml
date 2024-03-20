@@ -9,6 +9,14 @@ annotations:
   tekton.dev/pipelines.minVersion: "0.17.0"
   tekton.dev/platforms: linux/amd64
   tekton.dev/tags: image-build
+  artifacthub.io/maintainers: |
+      - name: OpenShift Pipeline task maintainers
+        email: pipelines-extcomm@redhat.com
+  artifacthub.io/provider: Red Hat
+  artifacthub.io/recommendations: |
+      - url: https://tekton.dev/
+  artifacthub.io/category: integration-delivery
+
 
 # cloud native builder base configuration
 cnb:
