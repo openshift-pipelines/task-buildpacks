@@ -99,6 +99,10 @@ default: helm-template
 install:
 	$(call render-template) |kubectl $(ARGS) apply -f -
 
+# renders and remove the resources (task)
+remove:
+	$(call render-template) |kubectl $(ARGS) delete -f -
+
 # installs "git" task directly from the informed location, the task is required to run the test-e2e
 # target, it will hold the "source" workspace data
 task-git:
