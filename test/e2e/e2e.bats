@@ -15,7 +15,6 @@ declare E2E_PVC_NAME="${E2E_PVC_NAME:-}"
 	[ -n "${E2E_PARAM_URL}" ]
 	[ -n "${E2E_PARAM_IMAGE}" ]
 	[ -n "${E2E_PARAM_SUBDIRECTORY}" ]
-	[ -n "${E2E_PVC_NAME}" ]
 
 	# cleaning up all the existing resources before starting a new pipelinerun, the test assertion
 	# will describe the objects on the current namespace
@@ -31,8 +30,8 @@ declare E2E_PVC_NAME="${E2E_PVC_NAME:-}"
 		--param="SUBDIRECTORY=${E2E_PARAM_SUBDIRECTORY}" \
 		--param="IMAGE=${E2E_PARAM_IMAGE}" \
 		--param="VERBOSE=true" \
-		--workspace="name=source,claimName=${E2E_PVC_NAME},subPath=source" \
-		--workspace="name=cache,claimName=${E2E_PVC_NAME},subPath=cache" \
+		--workspace="name=source,volumeClaimTemplateFile=./test/e2e/resources/workspace-template.yaml" \
+		--workspace="name=cache,emptyDir=" \
 		--workspace="name=bindings,emptyDir=" \
 		--filename=test/e2e/resources/10-pipeline.yaml \
 		--showlog
@@ -44,5 +43,5 @@ declare E2E_PVC_NAME="${E2E_PVC_NAME:-}"
 	# asserting the task status, it must have all steps running sucessfully
 	assert_tekton_resource "pipelinerun" --partial '(Failed: 0, Cancelled 0), Skipped: 0'
 	# asserting the task results using a regexp to match the expected key-value entries
-	assert_tekton_resource "taskrun" --regexp $'IMAGE_DIGEST=\S+.\nIMAGE_URL=\S+*'
+	assert_tekton_resource "taskrun" --regexp $'IMAGE_DIGEST=\S+\nIMAGE_URL=\S+'
 }

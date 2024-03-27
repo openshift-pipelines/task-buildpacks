@@ -2,9 +2,7 @@
 name: release
 
 on:
-  push:
-    tags:
-      - "*"
+  workflow_dispatch: {}
 
 jobs:
   release:
@@ -14,7 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - uses: azure/setup-helm@v4
 
-      - uses: openshift-pipelines/release-tektoncd-task@main
+      - name: github-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          make github-release
