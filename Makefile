@@ -15,6 +15,8 @@ BATS_FLAGS ?= --print-output-on-failure --show-output-of-passing-tests --verbose
 INTEGRATION_TESTS ?= ./test/integration/*.bats
 E2E_TESTS ?= ./test/e2e/*.bats
 
+RELEASE_DIR ?= /tmp/$(CHART_NAME)-$(CHART_VERSION)
+RELEASE_VERSION = v$(CHART_VERSION)
 # buildpacks pipelinerun parameters, the git repository url and the container image fully qualified
 # picked up by the "test-e2e" target
 E2E_PARAM_URL ?= https://github.com/paketo-buildpacks/samples.git
