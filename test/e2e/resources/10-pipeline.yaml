@@ -35,7 +35,7 @@ spec:
           - name: revision
             value: p
           - name: pathInRepo
-            value: tasks/task-git/0.2.0/task-git.yaml
+            value: tasks/task-git-clone/0.3.0/task-git-clone.yaml
       workspaces:
         - name: output
           workspace: source
