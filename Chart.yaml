@@ -2,7 +2,7 @@
 apiVersion: v2
 name: task-buildpacks
 type: application
-version: 0.0.1
+version: 0.1.0
 description: |
   Tekton Task to build applications from the source-code to container images,
   using Buildpacks Cloud Native Builder image (CNB).
