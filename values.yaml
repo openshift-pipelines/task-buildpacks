@@ -1,7 +1,7 @@
 ---
 images:
-  bash: docker.io/library/bash:latest
-  builder: docker.io/paketobuildpacks/builder:base
+  bash: mirror.gcr.io/library/bash:latest
+  builder: mirror.gcr.io/paketobuildpacks/builder:base
 
 annotations:
   tekton.dev/categories: Image Build
