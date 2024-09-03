@@ -123,27 +123,13 @@ spec:
   steps:
     # load all the shell scripts into the "/script" directory, a simple file creation followed by
     # adding execution permission
-    - name: load-scripts
-      image: {{ .Values.images.bash }}
-      workingDir: /scripts
-      script: |
-        set -e
-{{- range $path, $content := .Files.Glob  "scripts/*.sh" }}
-  {{- $name := trimPrefix "scripts/" $path }}
-        printf '%s' "{{ $content | toString | b64enc }}" |base64 -d >{{ $name }}
-        chmod +x "{{ $name }}"
-{{- end }}
-      volumeMounts:
-        - name: scripts-dir
-          mountPath: /scripts
-
     # prepare the filesytem and extra settings in order to perform the CNB builder as the next step,
     # extra enviroment variables are stored on the "/platform/env", and extra binding files on the
     # service-binding root directory, following buildpacks convention
     - name: prepare
       image: {{ .Values.images.bash }}
-      command:
-        - /scripts/prepare.sh
+      script: |
+{{- include "load_scripts" ( list . ( list "" ) ( list "/scripts/prepare.sh" ) ) | nindent 8 }}
       args:
         - "$(params.ENV_VARS[*])"
       volumeMounts:
