@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-go@v6
         with:
           go-version: stable
-      - uses: azure/setup-helm@v4
+      - uses: azure/setup-helm@v5
 
       - name: github-release
         env:

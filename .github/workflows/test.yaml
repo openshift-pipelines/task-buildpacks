@@ -49,7 +49,7 @@ jobs:
           username: ${{ secrets.REGISTRY_REDHAT_USERNAME }}
           password: ${{ secrets.REGISTRY_REDHAT_TOKEN }}
 
-      - uses: azure/setup-helm@v4
+      - uses: azure/setup-helm@v5
 
       # instantiate a KinD (Kubernetes in Docker) cluster, installs `kubectl` and configures the
       # `kubeconfig` to reach the local cluster
