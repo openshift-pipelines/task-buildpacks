@@ -25,6 +25,7 @@ function rollout_status() {
 function install_channel() {
     local channel="${1}"
     echo "Installing OpenShift Pipelines from channel ${channel}"
+    echo "testing pr https://github.com/openshift/release/pull/57510"
     cat <<EOF | oc apply -f-
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
